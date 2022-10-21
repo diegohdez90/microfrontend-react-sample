@@ -1,3 +1,6 @@
-console.log('index.ts');
+import('./bootstrap');
+
+console.log('on bootstrap');
+
 
 export {}

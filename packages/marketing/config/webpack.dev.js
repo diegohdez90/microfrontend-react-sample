@@ -5,6 +5,9 @@ const common = require('./webpack.common');
 const dev = {
 	mode: 'development',
 	entry: "./src/index.ts",
+	resolve: {
+		extensions: ['.js', '.ts', '.tsx']
+	},
 	devServer: {
 		port: 8082,
 		historyApiFallback: {
