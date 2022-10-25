@@ -2,7 +2,6 @@ import React from 'react';
 import {
 	Button,
 	Card,
-	CardImg,
 	Container,
 	Row,
 	Col,
@@ -15,13 +14,10 @@ import { Link } from 'react-router-dom';
 
 function Copyright() {
   return (
-    <p>
-      {'Copyright © '}
-      <NavLink href="/">
+		<p className='flex-row'>
+      Copyright © <Link to="https://material-ui.com/">
         Your Website
-      </NavLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      </Link> {new Date().getFullYear()}{'.'}
     </p>
   );
 }

@@ -21,17 +21,14 @@ import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 */
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
 
 function Copyright() {
   return (
-    <p>
-      {'Copyright © '}
-      <NavLink href="https://material-ui.com/">
+    <p className='flex-row'>
+      Copyright © <Link to="https://material-ui.com/">
         Your Website
-      </NavLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      </Link> {new Date().getFullYear()}{'.'}
     </p>
   );
 }
@@ -176,10 +173,10 @@ export default function Pricing() {
               <h6>
                 {footer.title}
               </h6>
-              <ul>
+              <ul className='nav flex-column'>
                 {footer.description.map((item) => (
-                  <li key={item}>
-                    <NavLink href="#">
+                  <li key={item} className='nav-item'>
+                    <NavLink href="#" className='nav-link text-muted'>
                       {item}
                     </NavLink>
                   </li>
