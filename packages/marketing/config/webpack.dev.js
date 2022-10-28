@@ -1,16 +1,23 @@
+const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const common = require('./webpack.common');
+const { dependencies } = require('../package.json');
+
+console.log(dependencies);
 
 const dev = {
 	mode: 'development',
-	entry: "./src/index.ts",
 	resolve: {
 		extensions: ['.js', '.ts', '.tsx']
 	},
 	devServer: {
 		port: 8082,
-		historyApiFallback: true
+		historyApiFallback: {
+			index: "index.html"
+		}
 	},
 	module: {
 		rules: [{
@@ -47,8 +54,31 @@ const dev = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './public/index.html'
+		}),
+		// new ForkTsCheckerWebpackPlugin(),
+		new ModuleFederationPlugin({
+			name: 'marketing',
+			filename: 'remoteEntry.js',
+			exposes: {
+				'./Marketing': './src/index'
+			},
+			shared: {
+				...dependencies,
+				react: { singleton: true, eager: true, requiredVersion: dependencies.react },
+				"react-dom": {
+					singleton: true,
+					eager: true,
+					requiredVersion: dependencies["react-dom"],
+				},
+				"react-router-dom": {
+					singleton: true,
+					eager: true,
+					requiredVersion: dependencies["react-router-dom"],
+				},
+			}
 		})
 	]
 };
 
 module.exports = merge(common, dev);
+//module.exports = dev

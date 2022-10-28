@@ -1,16 +1,21 @@
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const common = require('./webpack.common');
+const path = require('path');
 
 const dev = {
 	mode: 'development',
+	devtool: "eval-source-map",
 	entry: "./src/index.ts",
 	resolve: {
 		extensions: ['.js', '.ts', '.tsx']
 	},
 	devServer: {
 		port: 8083,
-		historyApiFallback: true
+		historyApiFallback:{ index: "/", disableDotRule: true },
+    static: path.join(__dirname, "dist"),
 	},
 	module: {
 		rules: [{
@@ -45,8 +50,15 @@ const dev = {
 		}]
 	},
 	plugins: [
+		new ForkTsCheckerWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			template: './public/index.html'
+		}),
+		new ModuleFederationPlugin({
+			name: 'container',
+			remotes: {
+				marketing: 'marketing@http://localhost:8082/remoteEntry.js'
+			}
 		})
 	]
 };

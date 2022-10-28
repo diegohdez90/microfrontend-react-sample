@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:all": "concurrently \"cd ./marketing && npm run start:dev\" \"cd ./container && npm run start:dev\"",
+    "build:all": "concurrently \"cd ./marketing && npm run build:dev\" \"cd ./container && npm run build:dev\""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.5.0"
+  }
 }

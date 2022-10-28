@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
 	Container,
 	Row,
@@ -8,20 +7,8 @@ import {
 	NavLink,
 	Button
 } from 'react-bootstrap';
-/*
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Grid from '@material-ui/core/Grid';
-import StarIcon from '@material-ui/icons/StarBorder';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-*/
 import { Link, Link as RouterLink } from 'react-router-dom';
+import { BiStar } from 'react-icons/bi';
 
 function Copyright() {
   return (
@@ -131,8 +118,9 @@ export default function Pricing() {
 							<Col
 							>
 								<Card>
-									<Card.Header
-									/>
+									<Card.Header>
+										<h3 className='text-center'>{tier.title}<small className='justify-content-end'>{tier.title === 'Pro' && <BiStar />}</small></h3>
+									</Card.Header>
 									<Card.Body>
 										<div>
 											<h2>

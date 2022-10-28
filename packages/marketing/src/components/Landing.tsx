@@ -11,6 +11,7 @@ import {
 	Offcanvas
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function Copyright() {
   return (
@@ -52,17 +53,20 @@ export default function Album() {
 												justifyContent: 'center'
 											}}>
 												<Nav>
-													<Nav.Link href="/pricing">
-														<Button variant='primary'>
-															Pricing
-														</Button>
-													</Nav.Link>
-
-													<Nav.Link href="/pricing">
-														<Button variant='outline-primary'>
-															Pricing
-														</Button>
-													</Nav.Link>
+													<LinkContainer to="/pricing">
+														<Nav.Link>
+															<Button variant='primary'>
+																Pricing
+															</Button>
+														</Nav.Link>
+													</LinkContainer>
+													<LinkContainer to="/pricing">
+														<Nav.Link>
+															<Button variant='outline-primary'>
+																Pricing
+															</Button>
+														</Nav.Link>
+													</LinkContainer>
 												</Nav>
 											</Offcanvas.Body>
 										</Navbar.Offcanvas>
@@ -95,16 +99,20 @@ export default function Album() {
 											</p>
 										</Card.Body>
 										<Card.Footer>
-											<Card.Link href='/pricing'>
-												<Button variant='primary'>
-													View
-												</Button>
-											</Card.Link>
-											<Card.Link href='/pricing'>
-												<Button variant="primary">
-													Edit
-												</Button>
-											</Card.Link>
+											<LinkContainer to='/pricing'>
+												<Card.Link>
+													<Button variant='primary'>
+														View
+													</Button>
+												</Card.Link>
+											</LinkContainer>
+											<LinkContainer to='/pricing'>
+												<Card.Link href='/pricing'>
+													<Button variant="primary">
+														Edit
+													</Button>
+												</Card.Link>
+											</LinkContainer>
 										</Card.Footer>
 									</Card>
 								</Col>

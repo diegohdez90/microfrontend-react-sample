@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "init:ts": "tsc --init",
-    "start:dev": "webpack serve --config config/webpack.dev.js"
+    "start:dev": "webpack serve --config config/webpack.dev.js",
+    "build:dev": "npm run type && webpack",
+    "type": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,7 @@
     "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
+    "fork-ts-checker-webpack-plugin": "^7.2.13",
     "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.4.18",
     "postcss-loader": "^7.0.1",
