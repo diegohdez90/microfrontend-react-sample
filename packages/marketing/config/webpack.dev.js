@@ -1,6 +1,5 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const common = require('./webpack.common');
@@ -13,6 +12,7 @@ const dev = {
 	resolve: {
 		extensions: ['.js', '.ts', '.tsx']
 	},
+	devtool: 'eval-source-map',
 	devServer: {
 		port: 8082,
 		historyApiFallback: {
@@ -52,10 +52,7 @@ const dev = {
 		}]
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			template: './public/index.html'
-		}),
-		// new ForkTsCheckerWebpackPlugin(),
+		new ForkTsCheckerWebpackPlugin(),
 		new ModuleFederationPlugin({
 			name: 'marketing',
 			filename: 'remoteEntry.js',
@@ -75,6 +72,16 @@ const dev = {
 					eager: true,
 					requiredVersion: dependencies["react-router-dom"],
 				},
+				"bootstrap": {
+					singleton: true,
+					eager: true,
+					requiredVersion: dependencies.bootstrap,
+				},
+				"react-bootstrap": {
+					singleton: true,
+					eager: true,
+					requiredVersion: dependencies['react-bootstrap'],
+				}
 			}
 		})
 	]

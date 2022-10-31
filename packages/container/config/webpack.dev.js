@@ -1,5 +1,4 @@
 const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const common = require('./webpack.common');
@@ -51,9 +50,6 @@ const dev = {
 	},
 	plugins: [
 		new ForkTsCheckerWebpackPlugin(),
-		new HtmlWebpackPlugin({
-			template: './public/index.html'
-		}),
 		new ModuleFederationPlugin({
 			name: 'container',
 			remotes: {
