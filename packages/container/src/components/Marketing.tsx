@@ -1,11 +1,18 @@
-import React, { Suspense } from 'react';
-const MarketingApp = React.lazy(() => import('marketing/Marketing'))
-console.log(MarketingApp);
+import React, { useRef, useEffect }  from 'react';
+import { mount } from 'marketing/Marketing';
 
 const Marketing = () => {
+	const ref = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		mount(ref.current as HTMLElement);
+	});
 
 	return (
-		<MarketingApp />
+		
+		<React.Suspense>
+			<div ref={ref}/>
+		</React.Suspense>
 	);
 }
 

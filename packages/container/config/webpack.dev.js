@@ -1,8 +1,10 @@
 const { merge } = require('webpack-merge');
 const { ModuleFederationPlugin } = require('webpack').container;
+const TerserPlugin = require("terser-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const common = require('./webpack.common');
 const path = require('path');
+const packages = require('../package.json');
 
 const dev = {
 	mode: 'development',
@@ -13,9 +15,12 @@ const dev = {
 	},
 	devServer: {
 		port: 8083,
-		historyApiFallback:{ index: "/", disableDotRule: true },
-    static: path.join(__dirname, "dist"),
+		historyApiFallback: { index: "index.html" }
 	},
+	optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
 	module: {
 		rules: [{
 			test: /\.(scss)$/,
@@ -54,6 +59,20 @@ const dev = {
 			name: 'container',
 			remotes: {
 				marketing: 'marketing@http://localhost:8082/remoteEntry.js'
+			},
+			shared: {
+				...packages.dependencies,
+				react: { singleton: true, eager: true, requiredVersion: packages.dependencies.react },
+				"react-dom": {
+					singleton: true,
+					eager: true,
+					requiredVersion: packages.dependencies["react-dom"],
+				},
+				"react-router-dom": {
+					singleton: true,
+					eager: true,
+					requiredVersion: packages.dependencies["react-router-dom"],
+				}
 			}
 		})
 	]

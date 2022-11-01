@@ -2,13 +2,13 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const { ModuleFederationPlugin } = require('webpack').container;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const common = require('./webpack.common');
-const { dependencies } = require('../package.json');
-
-console.log(dependencies);
+const dependencies = require('../package.json').dependencies;
 
 const dev = {
 	mode: 'development',
+	entry: "./src/index.ts",
 	resolve: {
 		extensions: ['.js', '.ts', '.tsx']
 	},
@@ -52,40 +52,45 @@ const dev = {
 		}]
 	},
 	plugins: [
+		new CleanWebpackPlugin(),
 		new ForkTsCheckerWebpackPlugin(),
 		new ModuleFederationPlugin({
 			name: 'marketing',
 			filename: 'remoteEntry.js',
 			exposes: {
-				'./Marketing': './src/index'
+				'./Marketing': './src/bootstrap'
 			},
-			shared: {
-				...dependencies,
-				react: { singleton: true, eager: true, requiredVersion: dependencies.react },
-				"react-dom": {
+			 shared: {
+			 	...dependencies,
+			 	react: { singleton: true, eager: true, requiredVersion: dependencies.react },
+			 	"react-dom": {
+			 		singleton: true,
+			 		eager: true,
+			 		requiredVersion: dependencies["react-dom"],
+			 	},
+			 	"react-router-dom": {
+			 		singleton: true,
+			 		eager: true,
+			 		requiredVersion: dependencies["react-router-dom"],
+			 	},
+			 	"bootstrap": {
+			 		singleton: true,
+			 		eager: true,
+			 		requiredVersion: dependencies.bootstrap,
+			 	},
+			 	"react-bootstrap": {
 					singleton: true,
-					eager: true,
-					requiredVersion: dependencies["react-dom"],
-				},
-				"react-router-dom": {
-					singleton: true,
-					eager: true,
-					requiredVersion: dependencies["react-router-dom"],
-				},
-				"bootstrap": {
-					singleton: true,
-					eager: true,
-					requiredVersion: dependencies.bootstrap,
-				},
-				"react-bootstrap": {
-					singleton: true,
-					eager: true,
-					requiredVersion: dependencies['react-bootstrap'],
-				}
-			}
+			 		eager: true,
+			 		requiredVersion: dependencies['react-bootstrap'],
+			 	},
+			 	"react-icons": {
+			 		singleton: true,
+			 		eager: true,
+			 		requiredVersion: dependencies['react-icons'],
+			 	}
+			 }
 		})
 	]
 };
 
 module.exports = merge(common, dev);
-//module.exports = dev

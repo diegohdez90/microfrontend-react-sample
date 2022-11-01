@@ -1,5 +1,5 @@
 declare module "marketing/Marketing" {
-	const Marketing: React.ComponentType;
+	const Marketing: Function;
 
-	export default Object;
+	export function mount(el: HTMLElement): void;
 }
