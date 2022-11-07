@@ -10,7 +10,8 @@ const dev = {
 		extensions: ['.js', '.ts', '.tsx']
 	},
 	output: {
-		filename: '[name].[contenthash].js'
+		filename: '[name].[contenthash].js',
+		publicPath: '/marketing/latest/'
 	},
 	devtool: 'eval-source-map',
 	module: {

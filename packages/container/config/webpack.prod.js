@@ -9,7 +9,8 @@ const domain = process.env.PRODUCTION_DOMAIN;
 const prod = {
 	mode: 'production',
 	output: {
-		filename: '[name].[contenthash].js'
+		filename: '[name].[contenthash].js',
+		publicPath: '/container/latest/'
 	},
 	devtool: 'eval-source-map',
 	resolve: {
@@ -52,7 +53,7 @@ const prod = {
 		new ModuleFederationPlugin({
 			name: 'container',
 			remotes: {
-				marketing: `marketing@${domain}/marketing/remoteEntry.js`
+				marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`
 			},
 			shared: packages.dependencies
 		})
