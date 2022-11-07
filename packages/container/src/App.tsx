@@ -1,13 +1,16 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Marketing from './components/Marketing';
+import NavigationBar from './components/NavigationBar';
 
 
 const App = () => {
 
-	return(<div>
-		<h4>App container</h4>
+	return(<BrowserRouter><div>
+		<NavigationBar />
 		<Marketing />
-	</div>);
+	</div>
+	</BrowserRouter>);
 };
 
 export default App;

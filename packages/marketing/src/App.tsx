@@ -5,13 +5,11 @@ import {
   Route,
 } from 'react-router-dom';
 import Landing from './components/Landing';
-import NavigationBar from './components/NavigationBar';
 import Pricing from './components/Pricing';
 
 const App = () => {
 	return (
 	<BrowserRouter>
-		<NavigationBar />
     <Routes>
 			<Route path='/' element={<Landing />} />
 			<Route path="pricing" element={<Pricing />} />
